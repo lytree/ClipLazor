@@ -14,9 +14,9 @@ Clipboard API Interop for blazor.
 
   builder.Service.AddClipboard();
   ```
-3.Add this script tag in your root html file (Likely _Host.cshtml for Blazor Server Apps or index.html for Blazor WebAssembly Apps), right under the framework script tag. (i.e `<script src="_framework/blazor.server.js"></script>` for Blazor Server Apps or `<script src="_framework/blazor.webassembly.js"></script>` for Blazor WebAssembly Apps):
-
+3.Add this script tag in your root html file _Host.cshtml for Blazor Server Apps or index.html for Blazor WebAssembly Apps:
   ```html
+  <script src="_framework/blazor.server.js"></script>
   <script src="_content/ClipLazor/Clipboard.js"></script>
   ```
   
