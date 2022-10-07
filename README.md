@@ -24,7 +24,22 @@ Clipboard API Interop for blazor.
   1. After ClipLazor installation now you can inject it:
   
     ```razor
-    @inject IClipLazor clipboard;
+    @inject IClipLazor clipboard
+    
+   <input @bind="text" />
+   <button @onclick="(async e => await Copy()))">Copy To Clipboard</button>
+
+   @code
+   {
+       string text = string.Empty;
+       
+       async void Copy()
+       {
+          if(text.Length > 0){
+            var response = await clipboard.CopyAsync(text);
+       }
+   }
+    
     ```
     
     
