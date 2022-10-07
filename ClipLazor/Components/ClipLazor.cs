@@ -40,8 +40,7 @@ namespace ClipLazor.Components
         /// <returns><see cref="System.String"></see> of the readed text.</returns>
         public async ValueTask<string> ReadAsync()
         {
-            var response = await JSRuntime.InvokeAsync<object>("readClipboard.readText")
-                .ConfigureAwait(false);
+            var response = await JSRuntime.InvokeAsync<object>("readClipboard.readText");
             return response.ToString();
         }
     }
