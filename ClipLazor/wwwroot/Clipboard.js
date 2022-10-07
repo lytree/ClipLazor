@@ -17,12 +17,7 @@ window.copyClipboard = {
 window.readClipboard = {
     readText: async function (text) {
         
-        const response = await navigator.clipboard.writeText(text).then(function () {
-            response = Text + "Copied!"
-        })
-            .catch(function (error) {
-                response = error;
-            });
+        const response = await navigator.clipboard.writeText(text);
         return response;
     }
 };
