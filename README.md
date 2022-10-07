@@ -1,6 +1,8 @@
 # ClipLazor
 Clipboard API Interop for blazor.
-![alt text](https://github.com/p6laris/ClipLazor/blob/master/image.jpg?raw=true)
+
+
+![alt text](https://github.com/p6laris/ClipLazor/blob/dev/ClipboardLazor.png?raw=true)
 
 ## Installation
 1. Install [ClipLazor](https://www.nuget.org/packages/ClipLazor) from the nuget package manager in your Blazor app.
@@ -26,7 +28,8 @@ Clipboard API Interop for blazor.
 
   ```razor
   @inject IClipLazor clipboard
-    
+  @using ClipLazor.Components;
+  
   <input @bind="text" />
   <button @onclick="(async c => await Copy()))">Copy To Clipboard</button>
 
