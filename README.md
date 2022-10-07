@@ -20,14 +20,14 @@ Clipboard API Interop for blazor.
   <script src="_content/ClipLazor/Clipboard.js"></script>
   ```
   
-  ## Usage
-  1. After ClipLazor installation now you can inject it:
-  
-    ```razor
-    @inject IClipLazor clipboard
+## Usage
+1. After ClipLazor installation now you can inject it:
+
+  ```razor
+  @inject IClipLazor clipboard
     
-   <input @bind="text" />
-   <button @onclick="(async e => await Copy()))">Copy To Clipboard</button>
+  <input @bind="text" />
+  <button @onclick="(async c => await Copy()))">Copy To Clipboard</button>
 
    @code
    {
@@ -39,8 +39,8 @@ Clipboard API Interop for blazor.
             var response = await clipboard.CopyAsync(text);
        }
    }
-    
-    ```
+   
+   ```
     
     
     
