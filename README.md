@@ -1,5 +1,7 @@
 # ClipLazor
 Clipboard API Interop for blazor.
+
+
 ![alt text](https://github.com/p6laris/ClipLazor/blob/master/ClipboardLazor.png?raw=true)
 
 ## Installation
