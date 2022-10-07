@@ -8,7 +8,20 @@
     <Authors>p0laris</Authors>
     <Description>Clipboard API interop for blazor.</Description>
     <Copyright>p0laris 2022</Copyright>
+    <PackageProjectUrl>https://github.com/p6laris/ClipLazor</PackageProjectUrl>
+    <PackageIcon>ClipboardLazor.png</PackageIcon>
+    <RepositoryUrl>https://github.com/p6laris/ClipLazor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Blazor Clipboard WSAM BlazorClipboard JSInterop</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\OneDrive\Desktop\ClipboardLazor.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 
   <ItemGroup>
