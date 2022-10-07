@@ -11,6 +11,6 @@ namespace ClipLazor.Extention
     public static class ClipLazorExtention
     {
         public static IServiceCollection AddClipboard(this IServiceCollection services) =>
-            services.AddScoped<IClipLazor, ClipLazor.Components.ClipLazor>();
+            services.AddScoped<ClipLazor.Components.ClipLazor>();
     }
 }
