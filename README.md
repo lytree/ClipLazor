@@ -25,6 +25,7 @@ Clipboard API Interop for blazor.
   
     ```razor
     @inject IClipLazor clipboard;
+    ```
     
     
     
