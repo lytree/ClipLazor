@@ -28,7 +28,8 @@ Clipboard API Interop for blazor.
 
   ```razor
   @inject IClipLazor clipboard
-    
+  @using ClipLazor.Components;
+  
   <input @bind="text" />
   <button @onclick="(async c => await Copy()))">Copy To Clipboard</button>
 
