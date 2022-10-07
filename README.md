@@ -1,6 +1,8 @@
 # ClipLazor
 Clipboard API Interop for blazor.
-![alt text](https://github.com/p6laris/ClipLazor/blob/dev/ClipLazor.png?raw=true)
+
+
+![alt text](https://github.com/p6laris/ClipLazor/blob/dev/ClipboardLazor.png?raw=true)
 
 ## Installation
 1. Install [ClipLazor](https://www.nuget.org/packages/ClipLazor) from the nuget package manager in your Blazor app.
