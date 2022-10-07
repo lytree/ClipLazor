@@ -17,7 +17,7 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="JSRuntime">The JSRuntime</param>
         /// <exception cref="ArgumentNullException">Throws if Js runtime was null.</exception>
-        public ClipLazor(JSRuntime JSRuntime)
+        public ClipLazor(IJSRuntime JSRuntime)
         {
             this.JSRuntime = JSRuntime ?? throw new ArgumentNullException(nameof(JSRuntime));
         }
