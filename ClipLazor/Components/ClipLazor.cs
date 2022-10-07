@@ -33,5 +33,16 @@ namespace ClipLazor.Components
                 var response = await JSRuntime.InvokeAsync<string>("copyClipboard.copyText", text.ToString());
                 return response;
         }
+
+        /// <summary>
+        /// Read a text from the clipboard.
+        /// </summary>
+        /// <returns><see cref="System.String"></see> of the readed text.</returns>
+        public async ValueTask<string> ReadAsync()
+        {
+            var response = await JSRuntime.InvokeAsync<object>("readClipboard.readText")
+                .ConfigureAwait(false);
+            return response.ToString();
+        }
     }
 }
