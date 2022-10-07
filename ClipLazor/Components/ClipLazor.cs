@@ -10,7 +10,7 @@ namespace ClipLazor.Components
     
     public class ClipLazor : IClipLazor
     {
-        private JSRuntime JSRuntime;
+        private IJSRuntime JSRuntime;
 
         /// <summary>
         /// Create a new instance of type <see cref="ClipboardLazor"></see>.
