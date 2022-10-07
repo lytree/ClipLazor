@@ -12,3 +12,17 @@ window.copyClipboard = {
         return response;
     }
 };
+
+//Read text from the clipboard using Clipboard API
+window.readClipboard = {
+    readText: async function (text) {
+        
+        const response = await navigator.clipboard.writeText(text).then(function () {
+            response = Text + "Copied!"
+        })
+            .catch(function (error) {
+                response = error;
+            });
+        return response;
+    }
+};
