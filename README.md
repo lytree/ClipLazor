@@ -50,6 +50,7 @@ An interop to the clipboard API for blazor.
        }
        async void Paste(){
        text = await clipboard.ReadAsync();
+       }
    }
    ```
  ## License
