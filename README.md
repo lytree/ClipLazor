@@ -1,5 +1,11 @@
 # ClipLazor
 Clipboard API Interop for blazor.
+![alt text](https://github.com/p6laris/ClipLazor/blob/master/image.jpg?raw=true)
+
+
+An interop to the clipboard API for blazor.
+
+
 ![alt text](https://github.com/p6laris/ClipLazor/blob/master/ClipboardLazor.png?raw=true)
 
 ## Installation
@@ -8,7 +14,7 @@ Clipboard API Interop for blazor.
   ```sh
   Install-package ClipLazor
   ```
-2. Add the service to the IoC container using `AddClipboard` method:
+2. Register the service to the IoC container using `AddClipboard` method:
 
   ```C#
   using ClipLazor.Extention;
@@ -17,20 +23,26 @@ Clipboard API Interop for blazor.
   ```
 3.Add this script tag in your root html file _Host.cshtml for Blazor Server Apps or index.html for Blazor WebAssembly Apps:
   ```html
-  <script src="_framework/blazor.server.js"></script>
-  <script src="_content/ClipLazor/Clipboard.js"></script>
+  <script src="_content/ClipLazor/clipboard.min.js"></script>
   ```
   
 ## Usage
 1. After ClipLazor installation now you can inject it:
 
   ```razor
-  @inject IClipLazor clipboard
+  @inject ClipLazor clipboard
   @using ClipLazor.Components;
+   
+   ```
+2. As you injected the ClipLazor you can copy a text to the clipboard by calling `CopyAsync` method
+   and `ReadAsync` to paste a text from the clipbaord:
+   
+   > :warning: **Pass the text argument for CopyAsync method as ReadOnlyMemory.**
   
+  ```razor
   <input @bind="text" />
-  <button @onclick="(async c => await Copy()))">Copy To Clipboard</button>
-
+  <button @onclick="(async c => await Copy()))">Copy</button>
+  <button @onclikc="(async c => await Paste())">Paste</button>
    @code
    {
        string text = string.Empty;
@@ -38,11 +50,15 @@ Clipboard API Interop for blazor.
        async void Copy()
        {
           if(text.Length > 0){
-            var response = await clipboard.CopyAsync(text);
+            var response = await clipboard.CopyAsync(text.AsMemory());
+       }
+       async void Paste(){
+       text = await clipboard.ReadAsync();
        }
    }
-   
    ```
+ ## License
+ [MIT License](LICENSE.txt)
     
     
     
