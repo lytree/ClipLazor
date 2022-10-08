@@ -1,4 +1,7 @@
 # ClipLazor
+![Nuget](https://img.shields.io/nuget/dt/ClipLazor?logo=nuget)
+
+
 An interop to the clipboard API for blazor.
 
 
