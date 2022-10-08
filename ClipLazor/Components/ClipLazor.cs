@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClipLazor.Components
 {
-    
+
     public class ClipLazor : IClipLazor
     {
         private IJSRuntime JSRuntime;
@@ -30,8 +30,8 @@ namespace ClipLazor.Components
         /// <returns><see cref="System.String"></see> of the response</returns>
         public async ValueTask<string> CopyAsync(ReadOnlyMemory<char> text)
         {
-                var response = await JSRuntime.InvokeAsync<string>("copyClipboard.copyText", text.ToString());
-                return response;
+            var response = await JSRuntime.InvokeAsync<object>("copyClipboard.copyText", text.ToString());
+            return response.ToString();
         }
 
         /// <summary>
