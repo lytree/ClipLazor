@@ -1,8 +1,4 @@
 # ClipLazor
-Clipboard API Interop for blazor.
-![alt text](https://github.com/p6laris/ClipLazor/blob/master/image.jpg?raw=true)
-
-
 An interop to the clipboard API for blazor.
 
 
