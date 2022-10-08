@@ -53,7 +53,7 @@ Clipboard API Interop for blazor.
    }
    ```
  ## License
- [MIT License](LICENSE)
+ [MIT License](LICENSE.txt)
     
     
     
