@@ -53,7 +53,7 @@ Clipboard API Interop for blazor.
    }
    ```
  ## License
- [MIT](https://github.com/p6laris/ClipLazor/blob/master/README.md)
+ [MIT License](LICENSE)
     
     
     
