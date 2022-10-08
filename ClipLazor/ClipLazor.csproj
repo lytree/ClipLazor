@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Blazor Clipboard WSAM BlazorClipboard JSInterop</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.1.0$(VersionPrefix)</Version>
+    <Version>1.1.1$(VersionPrefix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
   </ItemGroup>
 
 </Project>
