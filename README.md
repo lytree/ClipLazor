@@ -10,7 +10,7 @@ Clipboard API Interop for blazor.
   ```sh
   Install-package ClipLazor
   ```
-2. Add the service to the IoC container using `AddClipboard` method:
+2. Register the service to the IoC container using `AddClipboard` method:
 
   ```C#
   using ClipLazor.Extention;
