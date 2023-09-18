@@ -1,6 +1,7 @@
 using ClipLazor.WASM;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using ClipLazor.Extention;
 
 namespace ClipLazor.WASM
 {
@@ -13,6 +14,7 @@ namespace ClipLazor.WASM
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddClipboard();
 
             await builder.Build().RunAsync();
         }
