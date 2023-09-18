@@ -43,5 +43,7 @@ namespace ClipLazor.Components
             var response = await JSRuntime.InvokeAsync<object>("readClipboard.readText");
             return response.ToString();
         }
+
+        public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("isClipboardSupported");
     }
 }

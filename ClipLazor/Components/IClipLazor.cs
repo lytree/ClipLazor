@@ -23,5 +23,7 @@ namespace ClipLazor.Components
         /// </summary>
         /// <returns><see cref="System.String"></see> of the readed text.</returns>
         ValueTask<string> ReadTextAsync();
+
+        ValueTask<bool> IsClipboardSupported();
     }
 }
