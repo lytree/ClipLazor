@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using ClipLazor.Enums;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,5 +46,13 @@ namespace ClipLazor.Components
         }
 
         public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("isClipboardSupported");
+
+        public async ValueTask<bool> IsPermitted(PermissionCommand command)
+        {
+            var response = (command == PermissionCommand.Write) ?
+                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-write") :
+                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-read");
+            return response;
+        }
     }
 }

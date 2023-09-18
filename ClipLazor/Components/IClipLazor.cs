@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClipLazor.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,7 @@ namespace ClipLazor.Components
         ValueTask<string> ReadTextAsync();
 
         ValueTask<bool> IsClipboardSupported();
+
+        ValueTask<bool> IsPermitted(PermissionCommand command);
     }
 }
