@@ -28,7 +28,7 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="text"> The <see cref="System.ReadOnlyMemory{Char}"></see> text to copy to the clipboard</param>
         /// <returns><see cref="System.String"></see> of the response</returns>
-        public async ValueTask<string> CopyAsync(ReadOnlyMemory<char> text)
+        public async ValueTask<string> WriteTextAsync(ReadOnlyMemory<char> text)
         {
                 var response = await JSRuntime.InvokeAsync<string>("copyClipboard.copyText", text.ToString());
                 return response;
@@ -38,7 +38,7 @@ namespace ClipLazor.Components
         /// Read a text from the clipboard.
         /// </summary>
         /// <returns><see cref="System.String"></see> of the readed text.</returns>
-        public async ValueTask<string> ReadAsync()
+        public async ValueTask<string> ReadTextAsync()
         {
             var response = await JSRuntime.InvokeAsync<object>("readClipboard.readText");
             return response.ToString();

@@ -16,12 +16,12 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="text"> The <see cref="System.ReadOnlyMemory{Char}"></see> text to copy to the clipboard</param>
         /// <returns><see cref="System.String"></see> of the response</returns>
-        ValueTask<string> CopyAsync(ReadOnlyMemory<char> text);
+        ValueTask<string> WriteTextAsync(ReadOnlyMemory<char> text);
 
         /// <summary>
         /// Read a text from the clipboard.
         /// </summary>
         /// <returns><see cref="System.String"></see> of the readed text.</returns>
-        ValueTask<string> ReadAsync();
+        ValueTask<string> ReadTextAsync();
     }
 }
