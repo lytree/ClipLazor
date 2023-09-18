@@ -22,7 +22,15 @@ namespace ClipLazor.Components
         {
             this.JSRuntime = JSRuntime ?? throw new ArgumentNullException(nameof(JSRuntime));
         }
+        public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("isClipboardSupported");
 
+        public async ValueTask<bool> IsPermitted(PermissionCommand command)
+        {
+            var response = (command == PermissionCommand.Write) ?
+                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-write") :
+                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-read");
+            return response;
+        }
 
         /// <summary>
         /// Get a text and copy it to the clipboard.
@@ -37,14 +45,14 @@ namespace ClipLazor.Components
         /// <returns><see cref="System.String"></see> of the readed text.</returns>
         public async ValueTask<string> ReadTextAsync() => await JSRuntime.InvokeAsync<string>("pasteFromClipboard");
 
-        public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("isClipboardSupported");
+        
 
-        public async ValueTask<bool> IsPermitted(PermissionCommand command)
+        public async ValueTask<bool> WriteDataAsync(ReadOnlyMemory<byte> data, string mimeType = "text/plain") => await JSRuntime.InvokeAsync<bool>("copyDataToClipboard", data.ToArray(), mimeType);
+        public async ValueTask<Memory<byte>> ReadDataAsync(string mimeType = "text/plain")
         {
-            var response = (command == PermissionCommand.Write) ?
-                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-write") :
-                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-read");
-            return response;
+
+            return await JSRuntime.InvokeAsync<byte[]>("readDataFromClipboard", mimeType);
+
         }
     }
 }

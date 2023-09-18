@@ -38,3 +38,37 @@ export async function pasteFromClipboard(): Promise<string | null> {
         return null;
     }
 }
+
+// Copy binary data (Uint8Array) to the clipboard with a specified MIME type
+export async function copyDataToClipboard(data: Uint8Array, mimeType: string): Promise<boolean> {
+    try {
+        const blob = new Blob([data], { type: mimeType });
+        await navigator.clipboard.write([new ClipboardItem({ [mimeType]: blob })]);
+        return true;
+    } catch (error) {
+        console.error("Error copying data to clipboard:", error);
+        return false;
+    }
+}
+
+// Read binary data (Uint8Array) from the clipboard with a specified MIME type
+export async function readDataFromClipboard(mimeType: string): Promise<Uint8Array | null> {
+    try {
+        const clipboardItems = await navigator.clipboard.read();
+        for (const item of clipboardItems) {
+            for (const type of item.types) {
+                if (type === mimeType) {
+                    const blob = await item.getType(type);
+                    if (blob instanceof Blob) {
+                        const arrayBuffer = await blob.arrayBuffer();
+                        return new Uint8Array(arrayBuffer);
+                    }
+                }
+            }
+        }
+        return null; // Data with the specified mimeType not found in clipboard
+    } catch (error) {
+        console.error("Error reading data from clipboard:", error);
+        return null;
+    }
+}

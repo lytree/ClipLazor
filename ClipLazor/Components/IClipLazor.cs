@@ -28,5 +28,8 @@ namespace ClipLazor.Components
         ValueTask<bool> IsClipboardSupported();
 
         ValueTask<bool> IsPermitted(PermissionCommand command);
+
+        ValueTask<bool> WriteDataAsync(ReadOnlyMemory<byte> data, string mimeType);
+        ValueTask<Memory<byte>> ReadDataAsync(string mimeType);
     }
 }
