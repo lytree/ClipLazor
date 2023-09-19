@@ -2,11 +2,6 @@
 # ClipLazor: Clipboard API Interop for Blazor
 
 ClipLazor is a library that provides interop for the Clipboard API in Blazor applications, allowing you to easily interact with the clipboard.
-=======
-# ClipLazor
-An interop to the clipboard API for blazor.
-
-![Nuget](https://img.shields.io/nuget/dt/ClipLazor?logo=nuget)
 
 
 ![alt text](https://github.com/p6laris/ClipLazor/blob/master/ClipboardLazor.png?raw=true)
@@ -133,42 +128,11 @@ if (isReadPermitted)
     }
 }
 ```
-:page_facing_up: See the [full example](https://github.com/p6laris/ClipLazor/blob/dev/ClipLazor.WASM/Pages/Index.razor) code.
+:page_facing_up: See the [full example](https://github.com/p6laris/ClipLazor/blob/master/ClipLazor.WASM/Pages/Index.razor) code.
 
 ## License
 [MIT License](LICENSE.txt)
 
-=======
-  @inject ClipLazor clipboard
-  @using ClipLazor.Components;
-   
-   ```
-2. As you injected the ClipLazor you can copy a text to the clipboard by calling `CopyAsync` method
-   and `ReadAsync` to paste a text from the clipbaord:
-   
-   > :warning: **Pass the text argument for CopyAsync method as ReadOnlyMemory.**
-  
-  ```razor
-  <input @bind="text" />
-  <button @onclick="(async c => await Copy()))">Copy</button>
-  <button @onclikc="(async c => await Paste())">Paste</button>
-   @code
-   {
-       string text = string.Empty;
-       
-       async void Copy()
-       {
-          if(text.Length > 0){
-            var response = await clipboard.CopyAsync(text.AsMemory());
-       }
-       async void Paste(){
-       text = await clipboard.ReadAsync();
-       }
-   }
-   ```
- ## License
- [MIT License](LICENSE.txt)
-    
     
     
  
