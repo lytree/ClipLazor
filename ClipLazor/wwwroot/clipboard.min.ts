@@ -1,10 +1,18 @@
-﻿// Check if the browser supports clipboard functionality
+﻿/**
+ * Checks if the Clipboard API is supported in the current browser.
+ *
+ * @returns {boolean} `true` if the Clipboard API is supported, otherwise `false`.
+ */
 export function isClipboardSupported(): boolean {
     return !!navigator.clipboard;
 }
 
-
-// Check if the browser has permission to write to the clipboard
+/**
+ * Checks if the browser has permission to write to the clipboard.
+ *
+ * @param {PermissionName} command - The permission name to check (e.g., 'clipboard-write').
+ * @returns {Promise<boolean>} A Promise that resolves to `true` if the permission is granted, otherwise `false`.
+ */
 export async function hasClipboardPermission(command: PermissionName): Promise<boolean> {
     try {
         const permissionStatus = await navigator.permissions.query({ name: command });
@@ -15,9 +23,13 @@ export async function hasClipboardPermission(command: PermissionName): Promise<b
     }
 }
 
-// Copy a text string to the clipboard
+/**
+ * Copies the given text to the clipboard.
+ *
+ * @param {string} text - The text to be copied to the clipboard.
+ * @returns {Promise<boolean>} A Promise that resolves to `true` if the copy operation is successful, otherwise `false`.
+ */
 export async function copyToClipboard(text: string): Promise<boolean> {
-
     try {
         await navigator.clipboard.writeText(text);
         return true;
@@ -27,9 +39,12 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     }
 }
 
-// Paste text from the clipboard
+/**
+ * Reads text data from the clipboard.
+ *
+ * @returns {Promise<string | null>} A Promise that resolves to the copied text if successful, otherwise `null`.
+ */
 export async function pasteFromClipboard(): Promise<string | null> {
-
     try {
         const text = await navigator.clipboard.readText();
         return text;
@@ -39,7 +54,13 @@ export async function pasteFromClipboard(): Promise<string | null> {
     }
 }
 
-// Copy binary data (Uint8Array) to the clipboard with a specified MIME type
+/**
+ * Copies binary data (e.g., Uint8Array) to the clipboard with a specified MIME type.
+ *
+ * @param {Uint8Array} data - The binary data to be copied to the clipboard.
+ * @param {string} mimeType - The MIME type of the data.
+ * @returns {Promise<boolean>} A Promise that resolves to `true` if the copy operation is successful, otherwise `false`.
+ */
 export async function copyDataToClipboard(data: Uint8Array, mimeType: string): Promise<boolean> {
     try {
         const blob = new Blob([data], { type: mimeType });
@@ -51,7 +72,12 @@ export async function copyDataToClipboard(data: Uint8Array, mimeType: string): P
     }
 }
 
-// Read binary data (Uint8Array) from the clipboard with a specified MIME type
+/**
+ * Reads binary data (e.g., Uint8Array) from the clipboard with a specified MIME type.
+ *
+ * @param {string} mimeType - The MIME type of the data to read.
+ * @returns {Promise<Uint8Array | null>} A Promise that resolves to the binary data if found, otherwise `null`.
+ */
 export async function readDataFromClipboard(mimeType: string): Promise<Uint8Array | null> {
     try {
         const clipboardItems = await navigator.clipboard.read();
