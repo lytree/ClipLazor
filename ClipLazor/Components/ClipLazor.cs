@@ -37,9 +37,6 @@ namespace ClipLazor.Components
                  await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-write") :
                  await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-read");
             return response;
-            var response = await JSRuntime.InvokeAsync<object>("copyClipboard.copyText", text.ToString());
-            return response.ToString();
-
         }
 
         /// <summary>
