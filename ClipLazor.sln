@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipLazor", "ClipLazor\ClipLazor.csproj", "{63FE5488-FAE9-488D-AE7B-ADABFCE57266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClipLazor", "ClipLazor\ClipLazor.csproj", "{63FE5488-FAE9-488D-AE7B-ADABFCE57266}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D1A6091-EB48-40CE-81EC-99ADA5549104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipLazor.WASM", "ClipLazor.WASM\ClipLazor.WASM.csproj", "{AD461472-19CE-4B77-97F3-FF2608DDD77B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{63FE5488-FAE9-488D-AE7B-ADABFCE57266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63FE5488-FAE9-488D-AE7B-ADABFCE57266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63FE5488-FAE9-488D-AE7B-ADABFCE57266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD461472-19CE-4B77-97F3-FF2608DDD77B} = {9D1A6091-EB48-40CE-81EC-99ADA5549104}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B314B361-C75B-42BF-83FD-BA32EBC43484}
