@@ -19,8 +19,6 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
     - uses: actions/cache@v3
       with:
        path: ~/.nuget/packages
@@ -29,3 +27,7 @@ jobs:
         ${{ runner.os }}-nuget
     - name: Install dependencies
       run: dotnet add package Microsoft.Build --version 17.7.2
+    - name: Build
+      run: dotnet build --no-restore
+      
+    
