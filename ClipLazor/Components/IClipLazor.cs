@@ -1,27 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClipLazor.Enums;
 
 namespace ClipLazor.Components
 {
     /// <summary>
-    /// An abstraction for the Clipboard API
+    /// An abstraction for the Clipboard API.
     /// </summary>
     public interface IClipLazor
     {
         /// <summary>
-        /// Gets a text and copy it to the clipboard.
+        /// Checks if the Clipboard API is supported in the current environment.
         /// </summary>
-        /// <param name="text"> The <see cref="System.ReadOnlyMemory{Char}"></see> text to copy to the clipboard</param>
-        /// <returns><see cref="System.String"></see> of the response</returns>
-        ValueTask<string> CopyAsync(ReadOnlyMemory<char> text);
+        /// <returns>True if the Clipboard API is supported; otherwise, false.</returns>
+        ValueTask<bool> IsClipboardSupported();
 
         /// <summary>
-        /// Read a text from the clipboard.
+        /// Checks if the browser has permission to perform a specific clipboard operation.
         /// </summary>
-        /// <returns><see cref="System.String"></see> of the readed text.</returns>
-        ValueTask<string> ReadAsync();
+        /// <param name="command">The clipboard permission command (e.g., PermissionCommand.Write or PermissionCommand.Read).</param>
+        /// <returns>True if permission is granted; otherwise, false.</returns>
+        ValueTask<bool> IsPermitted(PermissionCommand command);
+
+        /// <summary>
+        /// Copies text to the clipboard.
+        /// </summary>
+        /// <param name="text">The text to copy to the clipboard.</param>
+        /// <returns>True if the copy operation is successful; otherwise, false.</returns>
+        ValueTask<bool> WriteTextAsync(ReadOnlyMemory<char> text);
+
+        /// <summary>
+        /// Reads text from the clipboard.
+        /// </summary>
+        /// <returns>The read text from the clipboard.</returns>
+        ValueTask<string> ReadTextAsync();
+
+        /// <summary>
+        /// Copies binary data to the clipboard with a specified MIME type.
+        /// </summary>
+        /// <param name="data">The binary data to copy to the clipboard.</param>
+        /// <param name="mimeType">The MIME type of the data (default is "text/plain").</param>
+        /// <returns>True if the copy operation is successful; otherwise, false.</returns>
+        ValueTask<bool> WriteDataAsync(ReadOnlyMemory<byte> data, string mimeType = "text/plain");
+
+        /// <summary>
+        /// Reads binary data from the clipboard with a specified MIME type.
+        /// </summary>
+        /// <param name="mimeType">The MIME type of the data to read (default is "text/plain").</param>
+        /// <returns>The read binary data from the clipboard.</returns>
+        ValueTask<Memory<byte>> ReadDataAsync(string mimeType = "text/plain");
     }
 }
