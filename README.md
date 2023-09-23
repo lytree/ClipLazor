@@ -115,7 +115,7 @@ if(isSupported && isWritePermitted)
 ```C#
 if (isReadPermitted)
 {
-    var pastedData = await Clipboard.ReadDataAsync("text/plain");
+    var pastedData = await Clipboard.ReadDataAsync("image/png");
     if (!pastedData.IsEmpty)
     {
         pastedImg = Convert.ToBase64String(pastedData.ToArray());
