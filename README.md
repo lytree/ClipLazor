@@ -33,12 +33,12 @@ After ClipLazor being installed, you can inject it in your razor file using `ICl
 
   ```razor
   @using ClipLazor.Components;
-  @inject IClipLazor clipboard
+  @inject IClipLazor Clipboard
    ```
 #### Checking Browser Support
 You can check if the browser supports the Clipboard API with the `IsClipboardSupported()` asynchronous method:
 ```C#
-bool isSupported = await clipbaord.IsClipboardSupported();
+bool isSupported = await Clipbaord.IsClipboardSupported();
 ```
 For more information about clipboard api support for browsers check this [link](https://caniuse.com/?search=Asynchronous%20Clipboard%20API)
 
