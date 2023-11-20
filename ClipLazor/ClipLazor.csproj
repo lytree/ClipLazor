@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Blazor Clipboard WSAM BlazorClipboard JSInterop blazor-interop ClipboardApi BlazorWASM BlazorServer</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.0.0$(VersionPrefix)</Version>
+    <Version>2.1.0$(VersionPrefix)</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
