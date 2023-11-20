@@ -33,12 +33,12 @@ After ClipLazor being installed, you can inject it in your razor file using `ICl
 
   ```razor
   @using ClipLazor.Components;
-  @inject IClipLazor clipboard
+  @inject IClipLazor Clipboard
    ```
 #### Checking Browser Support
 You can check if the browser supports the Clipboard API with the `IsClipboardSupported()` asynchronous method:
 ```C#
-bool isSupported = await clipbaord.IsClipboardSupported();
+bool isSupported = await Clipbaord.IsClipboardSupported();
 ```
 For more information about clipboard api support for browsers check this [link](https://caniuse.com/?search=Asynchronous%20Clipboard%20API)
 
@@ -71,7 +71,7 @@ if(isSupported && txt.Length > 0)
 2. To paste a text from the clipboard use 'ReadTextAsync()' async method. if the paste operation was successed the method ruturns the **text string**; otherwise **null**:
 ```C#
 string pastedTxt = string.Empty;
-if(isSupported && isWritePermitted)
+if(isSupported && isReadPermitted)
 {
     var pastedText = await Clipboard.ReadTextAsync();
     if (pastedText is not null)
@@ -86,14 +86,14 @@ if(isSupported && isWritePermitted)
 }
 ```
 #### Read And Write Data
-:exclamation: When you work with data for copy to the clipboard or paste from it, the `MIME Type` has to be specified. Note that not all MIME types supported by the clipboard api.
+:exclamation: When you work with data to copy to the clipboard or paste from it, the `MIME Type` has to be specified. Note that not all MIME types supported by the clipboard api.
 ##### Common Supported Mime Types:
 * **"text/plain"**
 * **"text/html"**
 * **"text/uri-list"**
 * **"image/png"**
 
-1. To copy data to the clipboard use `WriteDataAsync` async method. pass the array buffer of the data and it's associated MIME Type. The method will return **true** if the copy operation is successful; otherwise, **false**:
+1. To copy data to the clipboard use `WriteDataAsync` async method. pass the array buffer of the data and it's associated MIME Type. This method will return **true** if the copy operation is successful; otherwise, **false**:
 ```C#
  byte[] imgArray = Convert.FromBase64String(imageToCopy);
 
@@ -115,7 +115,7 @@ if(isSupported && isWritePermitted)
 ```C#
 if (isReadPermitted)
 {
-    var pastedData = await Clipboard.ReadDataAsync("text/plain");
+    var pastedData = await Clipboard.ReadDataAsync("image/png");
     if (!pastedData.IsEmpty)
     {
         pastedImg = Convert.ToBase64String(pastedData.ToArray());
