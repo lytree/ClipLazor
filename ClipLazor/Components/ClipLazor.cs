@@ -24,7 +24,7 @@ namespace ClipLazor.Components
         /// Checks if the Clipboard API is supported in the current browser.
         /// </summary>
         /// <returns>True if the Clipboard API is supported; otherwise, false.</returns>
-        public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("isClipboardSupported");
+        public async ValueTask<bool> IsClipboardSupported() => await JSRuntime.InvokeAsync<bool>("clipLazor.isClipboardSupported");
 
         /// <summary>
         /// Checks if the browser has permission to perform a specific clipboard operation.
@@ -34,8 +34,8 @@ namespace ClipLazor.Components
         public async ValueTask<bool> IsPermitted(PermissionCommand command)
         {
             var response = (command == PermissionCommand.Write) ?
-                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-write") :
-                 await JSRuntime.InvokeAsync<bool>("hasClipboardPermission", "clipboard-read");
+                 await JSRuntime.InvokeAsync<bool>("clipLazor.hasClipboardPermission", "clipboard-write") :
+                 await JSRuntime.InvokeAsync<bool>("clipLazor.hasClipboardPermission", "clipboard-read");
             return response;
         }
 
@@ -44,13 +44,13 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="text">The text to copy to the clipboard.</param>
         /// <returns>True if the copy operation is successful; otherwise, false.</returns>
-        public async ValueTask<bool> WriteTextAsync(ReadOnlyMemory<char> text) => await JSRuntime.InvokeAsync<bool>("copyToClipboard", text.ToString());
+        public async ValueTask<bool> WriteTextAsync(ReadOnlyMemory<char> text) => await JSRuntime.InvokeAsync<bool>("clipLazor.copyToClipboard", text.ToString());
 
         /// <summary>
         /// Reads text from the clipboard.
         /// </summary>
         /// <returns>The read text from the clipboard.</returns>
-        public async ValueTask<string> ReadTextAsync() => await JSRuntime.InvokeAsync<string>("pasteFromClipboard");
+        public async ValueTask<string> ReadTextAsync() => await JSRuntime.InvokeAsync<string>("clipLazor.pasteFromClipboard");
 
         /// <summary>
         /// Copies binary data to the clipboard with a specified MIME type.
@@ -58,7 +58,7 @@ namespace ClipLazor.Components
         /// <param name="data">The binary data to copy to the clipboard.</param>
         /// <param name="mimeType">The MIME type of the data (default is "text/plain").</param>
         /// <returns>True if the copy operation is successful; otherwise, false.</returns>
-        public async ValueTask<bool> WriteDataAsync(ReadOnlyMemory<byte> data, string mimeType = "text/plain") => await JSRuntime.InvokeAsync<bool>("copyDataToClipboard", data.ToArray(), mimeType);
+        public async ValueTask<bool> WriteDataAsync(ReadOnlyMemory<byte> data, string mimeType = "text/plain") => await JSRuntime.InvokeAsync<bool>("clipLazor.copyDataToClipboard", data.ToArray(), mimeType);
 
         /// <summary>
         /// Reads binary data from the clipboard with a specified MIME type.
@@ -67,7 +67,7 @@ namespace ClipLazor.Components
         /// <returns>The read binary data from the clipboard.</returns>
         public async ValueTask<Memory<byte>> ReadDataAsync(string mimeType = "text/plain")
         {
-            return await JSRuntime.InvokeAsync<byte[]>("readDataFromClipboard", mimeType);
+            return await JSRuntime.InvokeAsync<byte[]>("clipLazor.readDataFromClipboard", mimeType);
         }
     }
 }
