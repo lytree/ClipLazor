@@ -21,7 +21,7 @@ ClipLazor is a library that provides interop for the Clipboard API in Blazor app
   // Inside your ConfigureServices method
   builder.Service.AddClipboard();
   ```
-3.Add this script tag in your root file **_Host.cshtml for Blazor Server Apps** or **index.html for Blazor WebAssembly Apps**:
+3.Add this script tag in your root file **_Host.cshtml or App.razor for Blazor Server Apps** and **index.html for Blazor WebAssembly Apps**:
   ```html
 
   <script src="_framework/blazor.server.js"></script>
