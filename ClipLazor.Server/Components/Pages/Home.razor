@@ -1,0 +1,42 @@
+﻿@page "/"
+@using ClipLazor.Enums;
+@inject IClipLazor Clipboard;
+@rendermode InteractiveServer
+
+
+<PageTitle>Clipboard Example</PageTitle>
+
+<p>@pastedTxt</p>
+<button @onclick="async () => await CopyText()">Copy</button>
+<button @onclick="async () => await PasteText()">Paste</button>
+
+@code {
+
+    string txt = "Helle there!";
+    string pastedTxt = string.Empty;
+
+    async ValueTask<bool> CheckForSupport() => await Clipboard.IsClipboardSupported();
+    async ValueTask<bool> IsAllowed(PermissionCommand command) => await Clipboard.IsPermitted(command);
+        
+    async ValueTask CopyText()
+    {
+        if (await CheckForSupport())
+        {
+            if (await IsAllowed(PermissionCommand.Write))
+            {
+                await Clipboard.WriteTextAsync(txt.AsMemory());
+            }
+        }
+    }
+
+    async ValueTask PasteText()
+    {
+        if (await CheckForSupport())
+        {
+            if (await IsAllowed(PermissionCommand.Read))
+            {
+                pastedTxt = await Clipboard.ReadTextAsync();
+            }
+        }
+    }
+}
