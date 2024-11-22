@@ -1,8 +1,6 @@
-﻿namespace ClipLazor.Enums
+﻿namespace ClipLazor;
+public enum PermissionCommand
 {
-    public enum PermissionCommand
-    {
-        Write,
-        Read
-    }
+    Write,
+    Read
 }

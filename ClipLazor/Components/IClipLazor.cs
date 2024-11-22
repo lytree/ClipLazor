@@ -1,5 +1,4 @@
-﻿using ClipLazor.Enums;
-
+﻿
 namespace ClipLazor.Components
 {
     /// <summary>

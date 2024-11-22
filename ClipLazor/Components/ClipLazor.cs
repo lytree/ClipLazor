@@ -1,5 +1,4 @@
-﻿using ClipLazor.Enums;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace ClipLazor.Components
 {
