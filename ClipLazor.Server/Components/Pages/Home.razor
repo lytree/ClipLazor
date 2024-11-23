@@ -1,41 +1,136 @@
 ﻿@page "/"
+@using ClipLazor.Components;
 @inject IClipLazor Clipboard;
 @rendermode InteractiveServer
 
-
 <PageTitle>Clipboard Example</PageTitle>
+<button>Hi</button>
+<p><b> Clipboard Supported</b>: @isSupported</p>
+<p><b> Is Write Permitted</b>: @isWritePermitted</p>
+<p><b> Is Read Permitted</b>: @isReadPermitted</p>
 
-<p>@pastedTxt</p>
-<button @onclick="async () => await CopyText()">Copy</button>
-<button @onclick="async () => await PasteText()">Paste</button>
+<hr />
+<h2>Text Clipbard</h2>
+<input @bind="txt" />
+<input @bind="pastedTxt" placeholder="past text here" />
+<button @onclick="async () => await CopyTxt()">Copy</button>
+<button @onclick="async () => await PasteTxt()">Paste</button>
+<p>@msg</p>
+
+<hr />
+<div>
+    <h2>Data Clipboard</h2>
+    <p>Image To Copy:</p>
+    <img style=" border:2px solid indigo;" src="data:image/png;base64,@imageToCopy" alt="Image to Copy" />
+    <p>Paste Image: </p>
+    <img style=" border:2px solid black;" alt="imageToCopy" src="data:image/png;base64,@pastedImg" />
+    <button @onclick="async ()=> await CopyData()">Copy Image</button>
+    <button @onclick="async ()=> await PasteData()">Paste Image</button>
+    <p>@dmsg</p>
+</div>
+<div>
+    <h2>ClipboardTextAction Component</h2>
+    <ClipboardTextAction Text="Hello World!">Say hi to the clipboard</ClipboardTextAction>
+</div>
+
 
 @code {
-
-    string txt = "Helle there!";
+    bool isSupported = default;
+    bool isWritePermitted = default;
+    bool isReadPermitted = default;
+    string msg = string.Empty;
+    string txt = string.Empty;
     string pastedTxt = string.Empty;
+    string imageToCopy = string.Empty;
+    string pastedImg = string.Empty;
+    string dmsg = string.Empty;
 
-    async ValueTask<bool> CheckForSupport() => await Clipboard.IsClipboardSupported();
-    async ValueTask<bool> IsAllowed(PermissionCommand command) => await Clipboard.IsPermitted(command);
-        
-    async ValueTask CopyText()
+
+
+    protected override async Task OnInitializedAsync()
     {
-        if (await CheckForSupport())
-        {
-            if (await IsAllowed(PermissionCommand.Write))
-            {
-                await Clipboard.WriteTextAsync(txt.AsMemory());
-            }
-        }
+        isSupported = await Clipboard.IsClipboardSupported();
+        isWritePermitted = await Clipboard.IsPermitted(PermissionCommand.Write);
+        isReadPermitted = await Clipboard.IsPermitted(PermissionCommand.Read);
+        imageToCopy = "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";
+
     }
 
-    async ValueTask PasteText()
+    async ValueTask CopyTxt()
     {
-        if (await CheckForSupport())
+        if (txt.Length > 0 && isSupported)
         {
-            if (await IsAllowed(PermissionCommand.Read))
+            if (isWritePermitted)
             {
-                pastedTxt = await Clipboard.ReadTextAsync();
+                var isCopied = await Clipboard.WriteTextAsync(txt.AsMemory());
+                if (isCopied)
+                {
+                    msg = "Text Copied";
+                }
+                else
+                {
+                    msg = "Couldn't copy the text!.";
+                }
             }
+
+            StateHasChanged();
+
         }
     }
+    async ValueTask PasteTxt()
+    {
+        if (isSupported && isWritePermitted)
+        {
+            var pastedText = await Clipboard.ReadTextAsync();
+            if (pastedText is not null)
+            {
+                msg = "Text Pasted";
+                pastedTxt = pastedText;
+            }
+            else
+            {
+                msg = "Couldn't paste the text!.";
+            }
+        }
+
+        StateHasChanged();
+    }
+    async ValueTask CopyData()
+    {
+        byte[] imgArray = Convert.FromBase64String(imageToCopy);
+
+        if (imgArray.Length > 0 && isWritePermitted)
+        {
+            var isDataCopied = await Clipboard.WriteDataAsync(imgArray, "image/png");
+
+            if (isDataCopied)
+            {
+                dmsg = "Image Copied!";
+            }
+            else
+            {
+                dmsg = "Failed to copy the image!.";
+            }
+        }
+        StateHasChanged();
+    }
+    async ValueTask PasteData()
+    {
+        if (isReadPermitted)
+        {
+            var pastedData = await Clipboard.ReadDataAsync("image/png");
+            if (!pastedData.IsEmpty)
+            {
+                pastedImg = Convert.ToBase64String(pastedData.ToArray());
+                dmsg = "Image Pasted";
+
+            }
+            else
+            {
+                dmsg = "Couldn't paste the image";
+            }
+        }
+        StateHasChanged();
+    }
+
 }
