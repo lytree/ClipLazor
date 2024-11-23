@@ -3,7 +3,7 @@
 @inject IClipLazor Clipboard;
 
 <PageTitle>Clipboard Example</PageTitle>
-
+<button>Hi</button>
 <p><b> Clipboard Supported</b>: @isSupported</p>
 <p><b> Is Write Permitted</b>: @isWritePermitted</p>
 <p><b> Is Read Permitted</b>: @isReadPermitted</p>
@@ -12,8 +12,8 @@
 <h2>Text Clipbard</h2>
 <input @bind="txt" />
 <input @bind="pastedTxt" placeholder="past text here"/>
-<button @onclick="async () => CopyTxt()">Copy</button>
-<button @onclick="async () => PasteTxt()">Paste</button>
+<button @onclick="async () => await CopyTxt()">Copy</button>
+<button @onclick="async () => await PasteTxt()">Paste</button>
 <p>@msg</p>
 
 <hr />
@@ -22,12 +22,15 @@
     <p>Image To Copy:</p>
     <img style=" border:2px solid indigo;" src="data:image/png;base64,@imageToCopy" alt="Image to Copy" />
     <p>Paste Image: </p>
-    <img style=" border:2px solid black;" src="data:image/png;base64,@pastedImg" />
-    <button @onclick="async ()=> CopyData()">Copy Image</button>
-    <button @onclick="async ()=> PasteData()">Paste Image</button>
+    <img style=" border:2px solid black;" alt="imageToCopy" src="data:image/png;base64,@pastedImg" />
+    <button @onclick="async ()=> await CopyData()">Copy Image</button>
+    <button @onclick="async ()=> await PasteData()">Paste Image</button>
     <p>@dmsg</p>
 </div>
-
+<div>
+    <h2>ClipboardTextAction Component</h2>
+    <ClipboardTextAction Text="Hello World!">Say hi to the clipboard</ClipboardTextAction>
+</div>
 
 
 @code {
@@ -43,7 +46,7 @@
 
 
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         isSupported = await Clipboard.IsClipboardSupported();
         isWritePermitted = await Clipboard.IsPermitted(PermissionCommand.Write);
@@ -52,7 +55,7 @@
 
     }
 
-    async void CopyTxt()
+    async ValueTask CopyTxt()
     {
         if(txt.Length > 0 && isSupported)
         {
@@ -73,7 +76,7 @@
 
         }
     }
-    async void PasteTxt()
+    async ValueTask PasteTxt()
     {
         if(isSupported && isWritePermitted)
         {
@@ -91,7 +94,7 @@
 
         StateHasChanged();
     }
-    async void CopyData()
+    async ValueTask CopyData()
     {
         byte[] imgArray = Convert.FromBase64String(imageToCopy);
 
@@ -110,7 +113,7 @@
         }
         StateHasChanged();
     }
-    async void PasteData()
+    async ValueTask PasteData()
     {
         if (isReadPermitted)
         {
