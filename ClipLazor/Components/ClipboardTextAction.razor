@@ -1,0 +1,94 @@
+@inject IJSRuntime Runtime;
+@implements IDisposable
+
+<button @onclick="async () => await TakeAction()" style="@Style" class="@Class">
+    @ChildContent
+</button>
+
+@code {
+    /// <summary>
+    /// Gets or sets the ID of the target element to perform the clipboard action on.
+    /// </summary>
+    [Parameter]
+    public string TargetId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a text string to copy to the clipboard.
+    /// </summary>
+    [Parameter] public string Text { get; set; } = string.Empty;
+    /// <summary>
+    /// Gets or sets the clipboard action to perform. Defaults to <see cref="ClipboardAction.Copy"/>.
+    /// </summary>
+    [Parameter]
+    public ClipboardAction Action { get; set; } = ClipboardAction.Copy;
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class to apply to the button.
+    /// </summary>
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the inline styles to apply to the button.
+    /// </summary>
+    [Parameter]
+    public string Style { get; set; } = string.Empty;
+
+    /// <summary>
+    /// An event callback that is triggered when the clipboard action is completed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<OnTextActionEventArgs> OnAction { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ClipboardTextAction"/> class.
+    /// </summary>
+
+    private readonly DotNetObjectReference<ClipboardTextAction> _helper;
+
+    public ClipboardTextAction()
+    {
+        _helper = DotNetObjectReference.Create(this);
+    }
+    
+    private async ValueTask TakeAction()
+    {
+        if (!string.IsNullOrEmpty(TargetId))
+            await Runtime.InvokeVoidAsync("clipLazor.attachClipboardAction", TargetId, Action.ToString().ToLower(), _helper);
+
+        if (!string.IsNullOrEmpty(Text))
+        { 
+            var isSuccessed = await Runtime.InvokeAsync<bool>("clipLazor.copyToClipboard", Text);
+            await OnTextActionCallback(Text, "copy", isSuccessed);
+        }
+    }
+
+    [JSInvokable]
+    public async ValueTask OnTextActionCallback(string text, string action, bool isSuccess)
+    {
+        if (OnAction.HasDelegate)
+        {
+            ClipboardAction clipboardAction = action == "copy" ? ClipboardAction.Copy : ClipboardAction.Cut;
+            OnTextActionEventArgs eventArgs = new OnTextActionEventArgs()
+            {
+                Action = clipboardAction,
+                Text = text,
+                IsSuccess = isSuccess
+            };
+
+            if (OnAction.HasDelegate)
+                await OnAction.InvokeAsync(eventArgs);
+        }
+    }
+
+    public void Dispose()
+    {
+        _helper.Dispose();
+    }
+}

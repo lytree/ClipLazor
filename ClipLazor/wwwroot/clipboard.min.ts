@@ -1,22 +1,11 @@
 ﻿namespace ClipLazor {
-    interface IClipboardFunctionality {
-        isClipboardSupported(): boolean;
-        hasClipboardPermission(command: PermissionName): Promise<boolean>;
-        copyToClipboard(text: string): Promise<boolean>;
-        pasteFromClipboard(): Promise<string | null>;
-        copyDataToClipboard(data: Uint8Array, mimeType: string): Promise<boolean>;
-        readDataFromClipboard(mimeType: string): Promise<Uint8Array | null>;
-
-    }
-
-    class Clipboard implements IClipboardFunctionality {
+    class Clipboard {
 
         private readonly isChromium: boolean;
-
         constructor() {
             // Check for Chromium-based browser
             const userAgentData = (navigator as any).userAgentData;
-            const isChromium = !!userAgentData && userAgentData.brands.some(data => data.brand == 'Chromium');
+            this.isChromium = !!userAgentData && userAgentData.brands.some(data => data.brand == 'Chromium');
         }
         /**
          * Checks if the Clipboard API is supported in the current browser.
@@ -55,12 +44,18 @@
          * @returns {Promise<boolean>} A Promise that resolves to `true` if the copy operation is successful, otherwise `false`.
          */
         async copyToClipboard(text: string): Promise<boolean> {
-            try {
-                await navigator.clipboard.writeText(text);
+            if(this.isClipboardSupported()){
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (error) {
+                    console.error("Error copying to clipboard:", error);
+                    return false;
+                }
+            }
+            else {
+                this.commandCopy(text);
                 return true;
-            } catch (error) {
-                console.error("Error copying to clipboard:", error);
-                return false;
             }
         }
 
@@ -123,10 +118,86 @@
                 return null;
             }
         }
+        
+        /**
+         * Attaches a clipboard action (copy or cut) to a target HTML element.
+         *
+         * @param targetId - The ID of the target HTML element on which the clipboard action is to be performed.
+         * @param action - The clipboard action to perform, either 'copy' or 'cut'.
+         * @param dotNet - A .NET object reference used to invoke callback methods in Blazor.
+         * @returns A promise that resolves when the clipboard action and associated callback invocation are complete.
+         */
+        async attachClipboardAction(targetId: string, action: 'copy' | 'cut', dotNet): Promise<void> {
+            const targetElement = document.getElementById(targetId) as HTMLElement;
+            
+            if (!targetElement ){
+                await dotNet.invokeMethodAsync('OnTextActionCallback', "", action, false);
+                return;
+            }
+            
+            if(!this.isTextContentElement(targetElement)){
+                await dotNet.invokeMethodAsync('OnTextActionCallback', "", action, false);
+                return;
+            }
+                
+            const value = this.getElementContent(targetElement as HTMLElement);
+            const success = await this.copyToClipboard(value);
+
+            if (success && action === 'cut') {
+                this.clearElementContent(targetElement as HTMLElement);
+            }
+            
+            await dotNet.invokeMethodAsync('OnTextActionCallback', value, action, true);
+        }
+        private getElementContent(element: HTMLElement): string {
+            if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+                return element.value;
+            } else {
+                return element.innerText;
+            }
+        }
+
+        private clearElementContent(element: HTMLElement): void {
+            if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+                element.value = '';
+            } else {
+                element.innerText = '';
+            }
+        }
+        private isTextContentElement(element: HTMLElement): boolean {
+            return (
+                element instanceof HTMLInputElement ||
+                element instanceof HTMLTextAreaElement ||
+                element!.isContentEditable || // For editable divs
+                element instanceof HTMLHeadingElement ||
+                element instanceof HTMLParagraphElement ||
+                element instanceof HTMLSpanElement
+            );
+        }
+        private dataURLToUint8Array(dataUrl: string): Uint8Array {
+            const base64 = dataUrl.split(',')[1];
+            const binary = atob(base64);
+            const length = binary.length;
+            const buffer = new Uint8Array(length);
+            for (let i = 0; i < length; i++) {
+                buffer[i] = binary.charCodeAt(i);
+            }
+            return buffer;
+        }
+        private commandCopy(value: string) {
+            const ta = document.createElement('textarea')
+            ta.value = value ?? ''
+            ta.style.position = 'absolute'
+            ta.style.opacity = '0'
+            document.body.appendChild(ta)
+            ta.select()
+            document.execCommand('copy')
+            ta.remove()
+        }
     }
+    
     export function Load(): void {
         window['clipLazor'] = new Clipboard();
-
     }
 }
 
