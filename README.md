@@ -41,7 +41,8 @@ You can check if the browser supports the Clipboard API with the `IsClipboardSup
 bool isSupported = await Clipbaord.IsClipboardSupported();
 ```
 
-:warning: Most of non-Chromium browsers (Firefox or safari) does not support clipboard api permissions so the `IsClipboardSupported()` and `Clipboard.IsPermitted(PermissionCommand.Write)`, `Clipboard.IsPermitted(PermissionCommand.Read)` always return **true**. Please check this [mdn](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#security_considerations)
+:warning: Most of non-Chromium browsers (Firefox or safari) does not support clipboard api permissions so the `IsClipboardSupported()` and `Clipboard.IsPermitted(PermissionCommand.Write)`, `Clipboard.IsPermitted(PermissionCommand.Read)` will always return **true**. 
+Please check this [mdn](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#security_considerations)
 
 #### Checking Permissions
 The Clipboard API requires user permission to read and write to the clipboard. Use the `IsPermitted()` asynchronous method with the `PermissionCommand` enum to check read or write permission:
