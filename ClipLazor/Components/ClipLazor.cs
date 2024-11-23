@@ -64,7 +64,7 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="mimeType">The MIME type of the data to read (default is "text/plain").</param>
         /// <returns>The read binary data from the clipboard.</returns>
-        public async ValueTask<Memory<byte>> ReadDataAsync(string mimeType = "text/plain")
+        public async ValueTask<ReadOnlyMemory<byte>> ReadDataAsync(string mimeType = "text/plain")
         {
             return await JSRuntime.InvokeAsync<byte[]>("clipLazor.readDataFromClipboard", mimeType);
         }

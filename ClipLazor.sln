@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D1A6091
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipLazor.WASM", "ClipLazor.WASM\ClipLazor.WASM.csproj", "{AD461472-19CE-4B77-97F3-FF2608DDD77B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipLazor.Server", "ClipLazor.Server\ClipLazor.Server.csproj", "{A9421AD6-2159-4979-B1F9-0E34548B452A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD461472-19CE-4B77-97F3-FF2608DDD77B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9421AD6-2159-4979-B1F9-0E34548B452A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9421AD6-2159-4979-B1F9-0E34548B452A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9421AD6-2159-4979-B1F9-0E34548B452A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9421AD6-2159-4979-B1F9-0E34548B452A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD461472-19CE-4B77-97F3-FF2608DDD77B} = {9D1A6091-EB48-40CE-81EC-99ADA5549104}
+		{A9421AD6-2159-4979-B1F9-0E34548B452A} = {9D1A6091-EB48-40CE-81EC-99ADA5549104}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B314B361-C75B-42BF-83FD-BA32EBC43484}

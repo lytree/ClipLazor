@@ -45,6 +45,6 @@ namespace ClipLazor.Components
         /// </summary>
         /// <param name="mimeType">The MIME type of the data to read (default is "text/plain").</param>
         /// <returns>The read binary data from the clipboard.</returns>
-        ValueTask<Memory<byte>> ReadDataAsync(string mimeType = "text/plain");
+        ValueTask<ReadOnlyMemory<byte>> ReadDataAsync(string mimeType = "text/plain");
     }
 }
