@@ -81,9 +81,8 @@
                 Text = text,
                 IsSuccess = isSuccess
             };
-
-            if (OnAction.HasDelegate)
-                await OnAction.InvokeAsync(eventArgs);
+            
+            await OnAction.InvokeAsync(eventArgs);
         }
     }
 
