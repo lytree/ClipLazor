@@ -1,50 +1,77 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Title>ClipLazor</Title>
-    <Authors>p0laris</Authors>
-    <Description>ClipLazor is a library that provides interop for the Clipboard API in Blazor applications, allowing you to easily interact with the clipboard.
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Title>ClipLazor</Title>
+		<Authors>p0laris</Authors>
+		<Description>
+			ClipLazor is a library that provides interop for the Clipboard API in Blazor applications, allowing you to easily interact with the clipboard.
 
-</Description>
-    <Copyright>p0laris 2022</Copyright>
-    <PackageProjectUrl>https://github.com/p6laris/ClipLazor</PackageProjectUrl>
-    <PackageIcon>ClipboardLazor.png</PackageIcon>
-    <RepositoryUrl>https://github.com/p6laris/ClipLazor</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>Blazor Clipboard WSAM BlazorClipboard JSInterop blazor-interop ClipboardApi BlazorWASM BlazorServer</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.1.2$(VersionPrefix)</Version>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\ClipboardLazor.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.6.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Remove="wwwroot\clipboard.min.d.ts" />
-  </ItemGroup>
+		</Description>
+		<Copyright>p0laris 2022</Copyright>
+		<PackageProjectUrl>https://github.com/p6laris/ClipLazor</PackageProjectUrl>
+		<PackageIcon>ClipboardLazor.png</PackageIcon>
+		<RepositoryUrl>https://github.com/p6laris/ClipLazor</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Blazor Clipboard WSAM BlazorClipboard JSInterop blazor-interop ClipboardApi BlazorWASM BlazorServer</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>3.0.1$(VersionPrefix)</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PrepareForBuildDependsOn>
+			CompileTypeScript;
+			GetTypeScriptOutputForPublishing;
+			$(PrepareForBuildDependsOn)
+		</PrepareForBuildDependsOn>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TypeScriptOutFile>wwwroot\clipboard.min.js</TypeScriptOutFile>
+		<TypeScriptTarget>ESNEXT</TypeScriptTarget>
+		<TypeScriptAlwaysStrict>true</TypeScriptAlwaysStrict>
+		<TypeScriptInclude>Interop\*.ts</TypeScriptInclude>
+		<TypeScriptSourceMap>false</TypeScriptSourceMap>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\ClipboardLazor.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\LICENSE.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="wwwroot\*.js;wwwroot\*.js.map" />
+		<None Include="wwwroot\*.js;wwwroot\*.js.map" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.7.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+	<Target Name="CleanTypescriptOutput" AfterTargets="Clean">
+		<ItemGroup>
+			<FilesToDelete Include="wwwroot\**\*.js;wwwroot\**\*.js.map" />
+		</ItemGroup>
+
+		<Delete Files="@(FilesToDelete)" />
+	</Target>
 </Project>
