@@ -103,7 +103,7 @@ if(isSupported && isReadPermitted)
 
 The `OnTextActionEventArgs` class provides details about the clipboard action:
 
-1. **Action**: The clipboard action performed (Copy or Cut), Copy if Text provided.
+1. **Action**: The clipboard action performed (Copy or Cut), Copy if `Text` provided.
 2. **Text**: The text associated with the action. Empty ("") if failed.
 3. **IsSuccess**: A boolean indicating whether the action succeeded.
 
