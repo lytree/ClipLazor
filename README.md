@@ -157,7 +157,7 @@ private void HandleAction(OnTextActionEventArgs e){
      }
  }
 ```
-2. To paste the data from the clipboard use `ReadDataAsync` async method and pass the `MIME Type` argument, the method will return **`Memory<byte>`** of the data; or an **empty one**:
+2. To paste the data from the clipboard use `ReadDataAsync` async method and pass the `MIME Type` argument, the method will return **`ReadOnlyMemory<byte>`** of the data; or an **empty one**:
 ```C#
 if (isReadPermitted)
 {
