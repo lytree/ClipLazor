@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ClipLazor\ClipLazor.csproj" />
+      <PackageReference Include="ClipLazor" Version="3.0.2" />
     </ItemGroup>
 
 </Project>
